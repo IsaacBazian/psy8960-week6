@@ -16,7 +16,8 @@ sample(citations_txt, 10)
 
 citations_tbl <- tibble(line = 1:length(citations_txt), cite = citations_txt) %>%
   mutate(cite = str_replace_all(string = cite, pattern = regex("[\"\']"), replacement = "")) %>%
-  mutate(year = str_match(string = cite, pattern = OPEN_PAREN %R% capture(one_or_more(DGT)) %R% CLOSE_PAREN)[,2])
+  mutate(year = str_match(string = cite, pattern = OPEN_PAREN %R% capture(one_or_more(DGT)) %R% CLOSE_PAREN)[,2]) %>% 
+  mutate(page_start = str_match(string = cite, pattern = capture(one_or_more(DGT)) %R% "-")[,2])
 
 
 
