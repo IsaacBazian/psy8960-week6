@@ -19,7 +19,8 @@ citations_tbl <- tibble(line = 1:length(citations_txt), cite = citations_txt) %>
   mutate(year = str_match(string = cite, pattern = OPEN_PAREN %R% capture(one_or_more(DGT)) %R% CLOSE_PAREN)[,2]) %>% 
   mutate(page_start = str_match(string = cite, pattern = capture(one_or_more(DGT)) %R% "-")[,2]) %>% 
   mutate(perf_ref = str_detect(string = cite, pattern = stringr::regex("performance", ignore_case = T))) %>% 
-  mutate(title = str_match(string = cite, pattern = "\\)\\.\\s([^\\.]+[.?!])")[,2])
+  mutate(title = str_match(string = cite, pattern = "\\)\\.\\s([^\\.]+[.?!])")[,2]) %>% 
+  mutate(first_author = str_match(string = cite, pattern = optional(STAR) %R% capture(one_or_more(WRD) %R% "," %R% SPC %R% WRD %R% DOT %R% optional(SPC) %R% optional(WRD) %R% optional(DOT))))
 
 
 
